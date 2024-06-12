@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Strona główna - Blog wędkarski{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-white" style="background: rgba(0, 0, 0, 0.5);">
+    <h1 class="display-4">Witamy na blogu wędkarskim</h1>
+    <p class="lead">Najlepsze miejsce dla miłośników wędkarstwa. Czytaj, komentuj i dziel się swoimi doświadczeniami!</p>
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="{% url 'create_post' %}" role="button">Dodaj nowy wpis</a>
+    {% else %}
+        <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Zaloguj się</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Zarejestruj się</a>
+    {% endif %}
+</div>
+{% if user.is_authenticated %}
+    <div class="list-group">
+        {% for post in posts %}
+            <a href="{% url 'post_detail' post.id %}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">{{ post.tytul }}</h5>
+                <p class="mb-1">{{ post.tresc|truncatewords:30 }}</p>
+                <small>Autor: {{ post.autor.username }}, Data: {{ post.data_publikacji|date:"d-m-Y H:i" }}</small>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Musisz być zalogowany, aby zobaczyć posty. <a href="{% url 'login' %}">Zaloguj się</a> lub <a href="{% url 'register' %}">zarejestruj się</a>.</p>
+{% endif %}
+{% endblock %}

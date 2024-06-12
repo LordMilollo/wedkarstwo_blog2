@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista Postów</title>
+</head>
+<body>
+    <h1>Lista Postów</h1>
+    <ul>
+        {% for post in posty %}
+            <li>
+                <a href="{% url 'post_detail' post.pk %}">{{ post.tytul }}</a> - {{ post.autor.username }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

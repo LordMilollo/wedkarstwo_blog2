@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Wylogowanie - Blog wędkarski{% endblock %}
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+    Zostałeś pomyślnie wylogowany.
+</div>
+<a href="{% url 'index' %}" class="btn btn-primary">Wróć na stronę główną</a>
+{% endblock %}
