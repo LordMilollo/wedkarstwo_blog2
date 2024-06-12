@@ -9,7 +9,11 @@ from django.conf import settings
 from django.utils import timezone
 
 # Ustawienie lokalizacji na polski dla Windowsa
-locale.setlocale(locale.LC_TIME, 'pl_PL.UTF-8')
+try:
+    locale.setlocale(locale.LC_TIME, 'pl_PL.UTF-8')
+except locale.Error:
+    # Fallback to default locale
+    locale.setlocale(locale.LC_TIME, '')
 
 # Wyrejestrowanie modelu Group, jeśli nie jest potrzebny
 admin.site.unregister(Group)
